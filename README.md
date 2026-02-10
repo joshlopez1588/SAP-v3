@@ -82,8 +82,12 @@ python -m app.scripts.seed_fedlink_starter
 
 ## Railway Deployment
 
+This repo deploys as a single Railway web service (API + built SPA) using the root `Dockerfile`. `railway.toml` is included for Dockerfile deployment.
+
+### Option A: Railway GitHub Integration
+
 1. Create Railway project and PostgreSQL service.
-2. Link this GitHub repo to Railway.
+2. Link this GitHub repo to Railway in the Railway dashboard to enable auto-deploys on `main`.
 3. Configure environment variables:
 - `DATABASE_URL`
 - `SECRET_KEY`
@@ -91,7 +95,12 @@ python -m app.scripts.seed_fedlink_starter
 - `CORS_ORIGINS` (JSON array)
 4. Ensure healthcheck path is `/health`.
 
-`railway.toml` is already included for Dockerfile deployment.
+### Option B: GitHub Actions Auto-Deploy (Already Configured)
+
+This repo includes a GitHub Actions workflow at `.github/workflows/deploy.yml` that deploys to Railway on every push to `main`.
+
+Required GitHub Actions secret:
+- `RAILWAY_API_TOKEN`
 
 ## Tests
 
