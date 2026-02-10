@@ -1,0 +1,14 @@
+name: Railway Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy handled by Railway GitHub integration
+        run: echo "Railway auto-deploys when this repo is linked in Railway project settings."

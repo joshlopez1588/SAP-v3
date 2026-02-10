@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: sapv3
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      APP_ENV: development
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/sapv3
+      SECRET_KEY: development_secret_key_change_me_12345678901234567890
+      CORS_ORIGINS: '["http://localhost:5173","http://localhost:3000"]'
+      FILE_STORAGE_PATH: /app/backend/uploads
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    volumes:
+      - ./backend/uploads:/app/backend/uploads
+
+volumes:
+  postgres_data:
