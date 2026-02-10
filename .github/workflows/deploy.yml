@@ -9,11 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-      - name: Deploy to Railway production
-        env:
-          # Railway CLI v4 uses RAILWAY_API_TOKEN for non-interactive auth.
-          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-        run: railway up --ci --project cc7671bb-9fde-4196-8594-24b54cf616c8 --environment a1e8f7bb-1834-439a-98a3-cdc79665d3a2 --service sap-v3-web
+      - name: Deploy handled by Railway GitHub integration
+        run: |
+          echo "Railway auto-deploys when this repo is linked in Railway project settings."
+          echo "DB migrations run automatically on container startup via backend/entrypoint.sh."
