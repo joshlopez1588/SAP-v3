@@ -46,8 +46,11 @@ app_start_time = time.time()
 @app.on_event("startup")
 async def on_startup() -> None:
     Path(settings.file_storage_path).mkdir(parents=True, exist_ok=True)
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    # Production schema setup is handled via Alembic in the container entrypoint.
+    # For local development without the container entrypoint, keep a best-effort create_all.
+    if settings.app_env == "development":
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
     logger.info("Application startup complete")
 
 
