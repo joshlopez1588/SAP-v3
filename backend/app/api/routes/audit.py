@@ -111,7 +111,7 @@ async def export_audit(
             "entity_id": str(entry.entity_id) if entry.entity_id else None,
             "content_hash": entry.content_hash,
             "previous_hash": entry.previous_hash,
-            "metadata": entry.metadata,
+            "metadata": entry.audit_metadata,
         }
         for entry in entries
     ]

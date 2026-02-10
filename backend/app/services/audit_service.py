@@ -66,7 +66,7 @@ async def record_audit_event(
         entity_id=entity_id,
         before_state=before_state,
         after_state=after_state,
-        metadata=metadata or {},
+        audit_metadata=metadata or {},
         request_id=request_id,
         previous_hash=previous_hash,
         content_hash=content_hash,
@@ -90,7 +90,7 @@ async def verify_audit_hash_chain(db: AsyncSession) -> AuditVerificationResult:
             "entity_id": str(entry.entity_id) if entry.entity_id else None,
             "before_state": entry.before_state,
             "after_state": entry.after_state,
-            "metadata": entry.metadata,
+            "metadata": entry.audit_metadata,
             "request_id": entry.request_id,
             "previous_hash": previous_hash,
         }

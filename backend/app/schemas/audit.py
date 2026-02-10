@@ -3,11 +3,11 @@ from __future__ import annotations
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class AuditEntryOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
 
     id: int
     timestamp: datetime
@@ -19,7 +19,7 @@ class AuditEntryOut(BaseModel):
     entity_id: UUID | None
     content_hash: str
     previous_hash: str | None
-    metadata: dict
+    metadata: dict = Field(validation_alias="audit_metadata")
 
 
 class AuditVerificationResponse(BaseModel):

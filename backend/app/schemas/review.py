@@ -29,7 +29,7 @@ class ReviewStatusUpdate(BaseModel):
 
 
 class ReviewOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
 
     id: UUID
     name: str
@@ -46,7 +46,7 @@ class ReviewOut(BaseModel):
     approved_by: UUID | None
     approved_at: datetime | None
     reviewer_notes: str | None
-    metadata: dict[str, Any]
+    metadata: dict[str, Any] = Field(validation_alias="review_metadata")
     created_at: datetime
     updated_at: datetime
 
