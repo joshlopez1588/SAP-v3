@@ -10,5 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy handled by Railway GitHub integration
-        run: echo "Railway auto-deploys when this repo is linked in Railway project settings."
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+      - name: Deploy to Railway production
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway up --ci --project cc7671bb-9fde-4196-8594-24b54cf616c8 --environment a1e8f7bb-1834-439a-98a3-cdc79665d3a2 --service sap-v3-web
